@@ -1,0 +1,77 @@
+<%@ page language="java" contentType="text/html; charset=UTF-8"
+    pageEncoding="UTF-8"%>
+<%@ page import="com.DBUtil.JdbcConnection,java.sql.*,com.vo.*,com.dao.*" %>
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>Insert title here</title>
+<script src="../layui/layui.js" charset="utf-8"></script>
+<script src="../js/addstudent.js" charset="utf-8"></script>
+</head>
+<body>
+	<%
+	    request.setCharacterEncoding("utf-8");
+		String username=(String)session.getAttribute("username");
+	    Connection conn= JdbcConnection.getConn();
+	    String sql = "select item from item where type='校内活动'";
+	    PreparedStatement pstm=conn.prepareStatement(sql);
+	    ResultSet rs=pstm.executeQuery();
+	%>
+<form action="score?user=<%=username %>" method="post" class="layui-form">	
+
+ <div class="layui-form-item">
+    <label class="layui-form-label">学号</label>
+    <div class="layui-input-inline">
+      <input type="text" name="s_num" required  placeholder="请输入学号" autocomplete="off" class="layui-input">
+    </div>
+  </div>
+
+
+
+
+
+
+
+
+
+	<div align="center">
+		<table>
+		    <tr>
+				<td>学号：</td>
+				<td><input type="text" name="s_num"></td>
+			</tr>
+			<tr>
+				<td>姓名：</td>
+				<td><input type="text" name="name"></td>
+			</tr>
+			<tr>			
+				<td>评分项目：</td>
+				<td>
+				<select name="item">
+				<option value="">--请选择评分项--</option>
+				<% while(rs.next()){ %>
+				<option value="<%=rs.getString("item") %>"><%=rs.getString("item") %></option>				
+				<%}%>
+				</select>
+				</td>
+			</tr>			
+			<tr>
+				<td>分值：</td>
+				<td><input type="text" name="score"></td>
+			</tr>
+			<tr>
+			<td>备注信息：</td>
+			<td>
+				<textarea name="remark"></textarea>
+			</td>			
+			</tr>			
+			<tr>
+				<td colspan="2"><input type="submit" value="提交"></td>
+			</tr>
+		</table>	
+	</div>
+</form>	
+
+</body>
+</html>

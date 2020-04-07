@@ -1,0 +1,66 @@
+<%@ page language="java" contentType="text/html; charset=UTF-8"
+    pageEncoding="UTF-8"%>
+    <%@ page import="com.DBUtil.JdbcConnection,java.sql.*,com.vo.*,com.dao.*" %>
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>个人信息</title>
+</head>
+<body>
+<%String username=(String)session.getAttribute("username"); 
+String password=(String)session.getAttribute("password"); 
+Connection conn= JdbcConnection.getConn();
+String sql = "select * from student where name='"+username+"' and s_num='"+password+"'";
+PreparedStatement pstm=conn.prepareStatement(sql);
+ResultSet rs=pstm.executeQuery();
+%>
+
+<br><div align="center">个人信息</div><br>
+<div align="center">
+
+<table>
+<%
+	while(rs.next()){
+%>
+<tr>
+	<td>学号：</td>
+	<td><%=rs.getString("s_num") %></td>
+</tr>
+<tr>
+	<td>姓名：</td>
+	<td><%=rs.getString("name") %></td>
+</tr>
+<tr>
+	<td>性别：</td>
+	<td><%=rs.getString("sex") %></td>
+</tr>
+<tr>
+	<td>年龄：</td>
+	<td><%=rs.getString("age") %></td>
+</tr>
+<tr>
+	<td>班级：</td>
+	<td><%=rs.getString("classes") %></td>
+</tr>
+<tr>
+	<td>专业：</td>
+	<td><%=rs.getString("major") %></td>
+</tr>
+<tr>
+	<td>学院：</td>
+	<td><%=rs.getString("college") %></td>
+</tr>
+<tr>
+	<td>密码：</td>
+	<td><%=rs.getString("password") %></td>
+</tr>
+<% }%>
+
+</table>
+ 
+</div>
+
+
+</body>
+</html>

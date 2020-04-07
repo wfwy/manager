@@ -1,0 +1,64 @@
+<%@ page language="java" contentType="text/html; charset=UTF-8"
+    pageEncoding="UTF-8"%>
+<%@ page import="com.DBUtil.JdbcConnection,java.sql.*,com.vo.*,com.dao.*" %>
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>Insert title here</title>
+</head>
+<body>
+	<%
+	    request.setCharacterEncoding("utf-8");
+		String username=(String)session.getAttribute("username");
+		int id=Integer.valueOf(request.getParameter("id"));
+		int type=Integer.valueOf(request.getParameter("type"));
+		String ty=null;
+		if(type==1){
+			ty="校内活动";
+		}else if(type==2){
+			ty="比赛获奖";
+		}else{
+			ty="日常考勤";
+		}
+	    Connection conn= JdbcConnection.getConn();
+	    String sql = "select score.s_num,score.name,score.itme,score.score,score.remark FROM score,item where score.itme=item.item and item.type='"+ty+"' AND  score.id="+id+"";
+	    PreparedStatement pstm=conn.prepareStatement(sql);
+	    ResultSet rs=pstm.executeQuery();
+	%>
+	
+<form action="updatescore?user=<%=username %>&id=<%=id %>" method="post">	
+	<div align="center">
+		<table>
+		<% while(rs.next()){ %>
+		    <tr>   
+				<td>学号：</td>
+				<td><input type="text" name="s_num" value="<%=rs.getString("score.s_num") %>"></td>
+			</tr>
+			<tr>
+				<td>姓名：</td>
+				<td><input type="text" name="name" value="<%=rs.getString("score.name") %>"></td>
+			</tr>
+			<tr>			
+				<td>评分项目：</td>
+				<td>      
+				<input type="text" name="itme" value="<%=rs.getString("score.itme") %>">
+				</td>
+			</tr>		
+			<tr>
+			<td>备注信息：</td>
+			<td>
+				<input type="text" name="remark" value="<%=rs.getString("score.remark") %>">
+			</td>			
+			</tr>
+			<%}%>			
+			<tr>
+				<td colspan="2"><input type="submit" value="提交"></td>
+			</tr>
+			
+		</table>	
+	</div>
+</form>	
+
+</body>
+</html>

@@ -1,0 +1,45 @@
+<%@ page contentType="application/vnd.ms-excel;charset=GBK"%>  
+<HTML>  
+    <HEAD>  
+        <TITLE>标题</TITLE>  
+    </HEAD>  
+    <%  
+        String Filename = "名称.xls";  
+        Filename = new String(Filename.getBytes("GBK"), "iso-8859-1");  
+        response.setHeader("Content-Disposition", "attachment;filename="  
+                + Filename);  
+    %>  
+    <BODY topmargin="10px">  
+        <div align="center">  
+            <table width="800">  
+                <tr align="center" style="font: 30px" height="40" bgcolor="red">  
+                    <th colspan="6">标题</th>  
+                </tr>  
+                <tr height="30">  
+                    <td>单元：单元值</td>  
+                    <td colspan="5" ALIGN="center">单元: 单元值</td>  
+                </tr>  
+            </table>  
+            <table border="1" width="800" style="border-collapse: collapse">  
+                <tr height="35" ALIGN="center">  
+                    <th width="100">单元</th>  
+                    <td colspan="5"><label>&nbsp;</label>单元值</td>  
+                </tr>  
+                <tr height="35" ALIGN="center">  
+                    <th width="100">单元</th>  
+                    <td colspan="2">单元值</td>  
+                    <th width="150">单元</th>  
+                    <td colspan="2">单元值</td>  
+                </tr>  
+                <tr height="100" ALIGN="center">  
+                    <th width="100">单元</th>  
+                    <td ALIGN="left" colspan="5"><label>&nbsp;</label>单元值</td>  
+                </tr>  
+                <tr height="100" ALIGN="center">  
+                    <th width="100">单元</th>  
+                    <td ALIGN="left" colspan="5"><label>&nbsp;</label>单元值</td>  
+                </tr>  
+            </table>  
+        </div>  
+    </BODY>  
+</HTML>  

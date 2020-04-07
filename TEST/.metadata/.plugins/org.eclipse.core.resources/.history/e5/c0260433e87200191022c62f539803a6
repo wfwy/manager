@@ -1,0 +1,32 @@
+<%@ page language="java" contentType="text/html; charset=utf-8"
+    pageEncoding="utf-8"%>
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="utf-8">
+<title>Insert title here</title>
+<link rel="stylesheet" href="../layui/css/layui.css"  media="all">
+<script src="../layui/layui.js" charset="utf-8"></script>
+
+</head>
+<body>
+
+<%
+request.setCharacterEncoding("utf-8");
+String username=(String)session.getAttribute("username");
+%>
+
+
+
+<marquee scrollamount="2" direction="right"  >
+<h1 align="center">学生评分管理系统</h1>
+</marquee >
+<div align="right">
+<marquee scrollamount="2" direction="right"  >
+<h1 align="center">学生评分管理系统</h1>
+</marquee >
+	用户：<%=username %>
+</div>
+
+</body>
+</html>

@@ -1,0 +1,89 @@
+<%@ page language="java" contentType="text/html; charset=UTF-8"
+    pageEncoding="UTF-8"%>
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>Insert title here</title>
+<link rel="stylesheet" href="../layui/css/layui.css"  media="all">
+<script src="../layui/layui.js" charset="utf-8"></script>
+<script>
+layui.use('layer', function(){ //独立版的layer无需执行这一句
+	  var $ = layui.jquery, layer = layui.layer; //独立版的layer无需执行这一句
+	  
+	  //触发事件
+var active = {
+   offset: function(othis){
+    text = othis.text();
+    
+    layer.open({
+      type: 1
+      ,offset: auto //具体配置参考：http://www.layui.com/doc/modules/layer.html#offset
+      ,id: 'layerDemo'+auto //防止重复弹出
+      ,content: '<div style="padding: 20px 100px;">'+ text +'</div>'
+      ,btn: '关闭全部'
+      ,btnAlign: 'c' //按钮居中
+      ,shade: 0 //不显示遮罩
+      ,yes: function(){
+        layer.closeAll();
+      }
+    });
+  }
+};
+
+$('#layerDemo .layui-btn').on('click', function(){
+  var othis = $(this), method = othis.data('method');
+  active[method] ? active[method].call(this, othis) : '';
+});
+
+});
+</script>
+</head>
+<body>
+<div class="layui-form">
+  <table class="layui-table">
+    <colgroup>
+      <col width="150">
+      <col width="150">
+      <col width="200">
+      <col width="200">
+      <col>
+    </colgroup>
+    <thead>
+      <tr>
+        <th>人物</th>
+        <th>民族</th>
+        <th>出场时间</th>
+        <th>格言</th>
+        <th>格言</th>
+      </tr> 
+    </thead>
+    <tbody>
+      <tr>
+        <td>贤心</td>
+        <td>汉族</td>
+        <td>1989-10-14</td>
+        <td>人生似修行</td>
+        <td>张爱玲</td>
+      </tr>
+      <tr>
+        <td>张爱玲</td>
+        <td>汉族</td>
+        <td>1920-09-30</td>
+        <td>于千万人之中遇见你所遇见的人，于千万年之中，时间的无涯的荒野里…</td>
+      </tr>
+      <tr>
+        <td>Helen Keller</td>
+        <td>拉丁美裔</td>
+        <td>1880-06-27</td>
+        <td> Life is either a daring adventure or nothing.</td>
+      </tr>
+     
+      
+    </tbody>
+  </table>
+</div>
+<button data-method="offset"  class="layui-btn layui-btn-normal">居中弹出</button>
+
+</body>
+</html>

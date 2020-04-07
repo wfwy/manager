@@ -1,0 +1,43 @@
+<%@ page language="java" contentType="text/html; charset=UTF-8"
+    pageEncoding="UTF-8"%>
+  <%@ page import="com.DBUtil.JdbcConnection,java.sql.*,com.vo.*,com.dao.*" %>  
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>扣分信息</title>
+</head>
+<body>
+<%
+request.setCharacterEncoding("utf-8");
+String username=(String)session.getAttribute("username"); 
+
+Connection conn= JdbcConnection.getConn();
+String sql="select dedpoint.s_name,dedpoint.type,item.score,dedpoint.remark from dedpoint,item,student where dedpoint.type=item.item and student.name=dedpoint.s_name AND student.username="+username;
+PreparedStatement pstm=conn.prepareStatement(sql);
+ResultSet rs=pstm.executeQuery();
+%>
+
+<br><div align="center">扣分信息</div><br>
+<div align="center"> 
+<table border="1" cellpadding="0" cellspacing="0">
+<tr>
+	<td>学生姓名</td>
+	<td>评分类型</td>
+	<td>分数</td>
+	<td>备注</td>
+	
+</tr>
+
+<% while(rs.next()) { %>
+<tr>
+	<td><%=rs.getString("s_name") %></td>
+	<td><%=rs.getString("type") %></td>
+	<td><%=rs.getString("score") %></td>
+	<td><%=rs.getString("remark") %></td>
+</tr>
+<%} %>
+</table>
+</div>
+</body>
+</html>

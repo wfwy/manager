@@ -1,0 +1,66 @@
+<%@ page language="java" contentType="text/html; charset=UTF-8"
+    pageEncoding="UTF-8"%>
+    <%@ page import="com.DBUtil.JdbcConnection,java.sql.*,com.vo.*,com.dao.*" %>
+<%@page import="java.util.ArrayList"%>
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>评分项目管理 </title>
+
+ <script type="text/javascript">
+ function deleteAction(){
+     document.form1.action="score_typemanagement";
+     document.form1.submit();
+ } 
+ function updAction(){
+	document.form1.action="update.jsp";
+    document.form1.submit();
+ }
+ function button1(){
+	 window.open('scoring_type.jsp');
+ }
+ 
+ </script>
+ 
+</head>
+<body>
+<%
+	ArrayList<ScoreType> scoreTypes=new ScoreTypeDAO().getscore_type();
+	if(scoreTypes==null){
+		scoreTypes=new ArrayList<>();
+	}
+%>
+<br><div align="center">评分项目管理</div><br>
+<form method="post" name="form1">
+<div align="center"> 
+<table border="1" cellpadding="0" cellspacing="0">
+<tr>
+	<td>选项</td>
+	<td>编号</td>
+	<td>项目类型</td>
+	<td>项目分数</td>
+</tr>
+<% for(ScoreType scoreType:scoreTypes){ %>
+<tr>
+
+	<td>
+	<label><input name="id" type="radio" value="<%=scoreType.getId() %>" /></label>
+	</td>
+	<td><%=scoreType.getId() %></td>
+	<td><%=scoreType.getItem() %></td>
+	<td><%=scoreType.getScore() %></td>
+</tr>
+<%}%>
+</table>
+</div>
+</form>
+<div align="center">
+	<button type="submit" onclick="button1()">添加</button>
+	<input type="submit" value="删除"  onclick="deleteAction()">
+</div>
+
+
+
+</body>
+</html>
