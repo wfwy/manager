@@ -1,0 +1,53 @@
+package com.servlet;
+
+import java.io.IOException;
+
+import javax.servlet.ServletException;
+import javax.servlet.http.HttpServlet;
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
+
+import com.dao.StudentUserDAO;
+import com.vo.StudentUser;
+
+public class AddStudentServlet extends HttpServlet {
+
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = 1L;
+
+	@Override
+	protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
+		// TODO Auto-generated method stub
+		super.doGet(req, resp);
+	}
+
+	@Override
+	protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
+		req.setCharacterEncoding("utf-8");
+		String s_num=req.getParameter("s_num");
+		String name=req.getParameter("name");
+        String sex=req.getParameter("sex");
+        String age=req.getParameter("age");
+        String classes=req.getParameter("classes");
+        String major = req.getParameter("major");
+        String college=req.getParameter("college");
+        String password = req.getParameter("password");
+        StudentUser studentUser=new StudentUser();
+        studentUser.setS_num(s_num);
+        studentUser.setName(name);
+        studentUser.setSex(sex);
+        studentUser.setAge(age);
+        studentUser.setClasses(classes);
+        studentUser.setMajor(major);
+        studentUser.setCollege(college);
+        studentUser.setPassword(password);
+        StudentUserDAO studentUserDAO=new StudentUserDAO();
+        studentUserDAO.addStudent(studentUser);
+        
+        System.out.println("注册成功!");
+        req.getRequestDispatcher("/admin/addstudent.jsp").forward(req, resp);
+	}
+
+}
